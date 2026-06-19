@@ -34,9 +34,12 @@ public class PlayerMovement : MonoBehaviour
         // ----- TAMBAHAN KODE BARU DI SINI -----
         // 1. Mengatur Animasi (Idle / Walk)
         // sqrMagnitude akan bernilai lebih dari 0 jika karakter bergerak (W, A, S, D ditekan)
+        // KODE BARU (Lebih responsif untuk Animator)
         if (anim != null)
         {
-            anim.SetFloat("Speed", moveInput.sqrMagnitude);
+            // Jika moveInput mendekati 0 (diam), kirim 0. Jika bergerak, kirim 1.
+            float kecepatanAnimator = (moveInput.magnitude > 0.01f) ? 1f : 0f;
+            anim.SetFloat("Speed", kecepatanAnimator);
         }
 
         // 2. Mengatur Arah Hadap Karakter (Flip)
